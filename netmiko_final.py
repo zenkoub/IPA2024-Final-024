@@ -5,7 +5,7 @@ from paramiko.transport import Transport
 Transport._preferred_kex = ('diffie-hellman-group14-sha1',)
 Transport._preferred_keys = ('ssh-rsa',)
 
-device_ip = "10.0.15.61"
+device_ip = "10.0.15.64"
 username = "admin"
 password = "cisco"
 
@@ -16,7 +16,7 @@ device_params = {
     "password": password,
     "ssh_config_file": False,
     "allow_agent": False,
-    "conn_timeout": 20
+    "conn_timeout": 30
 }
 
 def gigabit_status():

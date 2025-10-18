@@ -13,4 +13,4 @@
     - name: Save running config locally
       copy:
         content: "{{ showrun_output.stdout[0] }}"
-        dest: "./show_run_66070024_R1-Exam.txt"
+        dest: "./show_run_66070024_R4-Exam.txt"
