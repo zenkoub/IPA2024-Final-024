@@ -107,9 +107,9 @@ while True:
         elif command == "status":
             responseMessage = rc.status(studentID)
         elif command == "gigabit_status":
-            responseMessage = rc.gigabit_status()
+            responseMessage = nc.gigabit_status(studentID)
         elif command == "showrun":
-            responseMessage = rc.showrun()
+            responseMessage = ac.showrun(studentID)
         else:
             responseMessage = "Error: No command or unknown command"
         
@@ -127,10 +127,10 @@ while True:
         # Read Send a Message with Attachments Local File Attachments
         # https://developer.webex.com/docs/basics for more detail
 
-        if command == "showrun" and responseMessage == 'ok':
-            filename = "showrun.json"
+        if command == "showrun" and responseMessage != "Error: Ansible":
+            filename = responseMessage
             fileobject = open(filename, "rb")
-            filetype = "application/json"
+            filetype = "text/plain"
             
             postData = {
                 "roomId": roomId,

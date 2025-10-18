@@ -1,6 +1,5 @@
 import json
 import requests
-import time
 requests.packages.urllib3.disable_warnings()
 
 router_ip = "10.0.15.61"
@@ -27,12 +26,12 @@ def check_interface(loopback_name, retries=3):
     return resp.status_code
 
 
-def create(student_id):
-    loopback_name = f"Loopback{student_id}"
+def create(studentID):
+    loopback_name = f"Loopback{studentID}"
     if check_interface(loopback_name) == 200:
         return f"Cannot create: Interface {loopback_name}"
 
-    last3 = int(str(student_id)[-3:])
+    last3 = int(str(studentID)[-3:])
     x = last3 // 100
     y = last3 % 100
     if y == 0:
@@ -42,7 +41,7 @@ def create(student_id):
     yangConfig = {
         "ietf-interfaces:interface": {
             "name": loopback_name,
-            "description": f"Interface for student {student_id}",
+            "description": f"Interface for student {studentID}",
             "type": "iana-if-type:softwareLoopback",
             "enabled": True,
             "ietf-ip:ipv4": {
@@ -68,8 +67,8 @@ def create(student_id):
         print('Error. Status Code: {}'.format(resp.status_code))
 
 
-def delete(student_id):
-    loopback_name = f"Loopback{student_id}"
+def delete(studentID):
+    loopback_name = f"Loopback{studentID}"
     if check_interface(loopback_name) != 200:
         return f"Cannot delete: Interface {loopback_name}"
     
@@ -87,8 +86,8 @@ def delete(student_id):
         print('Error. Status Code: {}'.format(resp.status_code))
 
 
-def enable(student_id):
-    loopback_name = f"Loopback{student_id}"
+def enable(studentID):
+    loopback_name = f"Loopback{studentID}"
     if check_interface(loopback_name) != 200:
         return f"Cannot enable: Interface {loopback_name}"
     
@@ -113,8 +112,8 @@ def enable(student_id):
         print('Error. Status Code: {}'.format(resp.status_code))
 
 
-def disable(student_id):
-    loopback_name = f"Loopback{student_id}"
+def disable(studentID):
+    loopback_name = f"Loopback{studentID}"
     if check_interface(loopback_name) != 200:
         return f"Cannot shutdown: Interface {loopback_name}"
     
@@ -139,8 +138,8 @@ def disable(student_id):
         print('Error. Status Code: {}'.format(resp.status_code))
 
 
-def status(student_id):
-    loopback_name = f"Loopback{student_id}"
+def status(studentID):
+    loopback_name = f"Loopback{studentID}"
     url = api_url_status + loopback_name
 
     resp = requests.get(url, auth=basicauth, headers=headers, verify=False)
@@ -159,37 +158,3 @@ def status(student_id):
         return f"No Interface {loopback_name}"
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
-
-def gigabit_status():
-    url = "https://" + router_ip + "/restconf/data/ietf-interfaces:interfaces-state"
-    resp = requests.get(url, auth=basicauth, headers=headers, verify=False)
-    
-    if resp.status_code != 200:
-        return f"Error: Unable to retrieve interfaces. Status code: {resp.status_code}"
-    
-    data = resp.json()
-    result = []
-    for iface in data["ietf-interfaces:interfaces-state"]["interface"]:
-        if "GigabitEthernet" in iface["name"]:
-            name = iface["name"]
-            admin = iface["admin-status"]
-            oper = iface["oper-status"]
-            result.append(f"{name}: admin={admin}, oper={oper}")
-
-    if not result:
-        return "No GigabitEthernet interfaces found."
-    else:
-        return "\n".join(result)
-    
-def showrun():
-    url = "https://" + router_ip + "/restconf/data/Cisco-IOS-XE-native:native"
-    resp = requests.get(url, auth=basicauth, headers=headers, verify=False)
-
-    if resp.status_code != 200:
-        return f"Error: Cannot retrieve running-config. HTTP {resp.status_code}"
-
-    with open("showrun.json", "w") as f:
-        json.dump(resp.json(), f, indent=2)
-
-    print("Running configuration saved to showrun.json")
-    return "ok"
