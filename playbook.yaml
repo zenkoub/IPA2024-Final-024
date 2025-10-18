@@ -1,14 +1,16 @@
 ---
-- name: Backup running configuration of router
+- name: Get running configuration of router
   hosts: routers
   gather_facts: no
+  connection: network_cli
   tasks:
-    - name: Save running config to file
-      ios_config:
-        backup: yes
-      register: config_backup
+    - name: Run 'show running-config'
+      ios_command:
+        commands:
+          - show running-config
+      register: showrun_output
 
-    - name: Write backup to local file
+    - name: Save running-config output to local file
       copy:
-        content: "{{ config_backup.backup }}"
-        dest: "./show_run_66070024_R1-Exam.txt"
+        content: "{{ showrun_output.stdout[0] }}"
+        dest: "./show_run_66070024_R4-Exam.txt"

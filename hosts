@@ -1,8 +1,9 @@
 [routers]
-csr1kv ansible_host=10.0.15.61 ansible_user=admin ansible_password=cisco ansible_network_os=ios
+csr1kv ansible_host=10.0.15.64 ansible_user=admin ansible_password=cisco ansible_network_os=ios ansible_connection=network_cli
 
 [all:vars]
-ansible_connection=network_cli
 ansible_become=yes
 ansible_become_method=enable
 ansible_become_password=cisco
+ansible_connection=network_cli
+ansible_network_os=ios
