@@ -2,7 +2,6 @@ from netmiko import ConnectHandler
 from pprint import pprint
 from paramiko.transport import Transport
 
-# Fix SSH KEX and host key issues for older IOS
 Transport._preferred_kex = ('diffie-hellman-group14-sha1',)
 Transport._preferred_keys = ('ssh-rsa',)
 
@@ -17,7 +16,7 @@ device_params = {
     "password": password,
     "ssh_config_file": False,
     "allow_agent": False,
-    "conn_timeout": 20  # increase timeout to avoid NetmikoTimeoutException
+    "conn_timeout": 20
 }
 
 def gigabit_status():

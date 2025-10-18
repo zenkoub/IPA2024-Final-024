@@ -1,5 +1,4 @@
 import subprocess
-import os
 
 def showrun(studentID):
     router_name = "R4-Exam"
