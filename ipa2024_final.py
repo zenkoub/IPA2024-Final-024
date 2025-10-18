@@ -23,13 +23,12 @@ room_response = requests.get(
     "https://webexapis.com/v1/rooms",
     headers={"Authorization": f"Bearer {ACCESS_TOKEN}"}
 )
-print(room_response.status_code)
-print(room_response.text)
+print("HTTP code:", room_response.status_code)
 
 rooms = room_response.json()["items"]
 
 for room in rooms:
-    if room["title"] == "66070024":  # Change this to your actual Webex room name if needed
+    if room["title"] == "66070024":
         roomId = room["id"]
         print("Using room:", room["title"])
         break

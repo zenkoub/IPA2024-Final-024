@@ -5,7 +5,7 @@ from paramiko.transport import Transport
 Transport._preferred_kex = ('diffie-hellman-group14-sha1',)
 Transport._preferred_keys = ('ssh-rsa',)
 
-device_ip = "10.0.15.64"
+device_ip = "10.0.15.61"
 username = "admin"
 password = "cisco"
 

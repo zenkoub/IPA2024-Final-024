@@ -1,5 +1,5 @@
 [routers]
-csr1kv ansible_host=10.0.15.64
+csr1kv ansible_host=10.0.15.61
 
 [routers:vars]
 ansible_connection=ansible.netcommon.network_cli

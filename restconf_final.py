@@ -2,7 +2,7 @@ import json
 import requests
 requests.packages.urllib3.disable_warnings()
 
-router_ip = "10.0.15.64"
+router_ip = "10.0.15.61"
 
 api_url = f"https://{router_ip}/restconf/data/ietf-interfaces:interfaces/interface="
 api_url_status = f"https://{router_ip}/restconf/data/ietf-interfaces:interfaces-state/interface="
