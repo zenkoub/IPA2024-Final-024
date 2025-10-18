@@ -1,3 +1,8 @@
 requests
+requests-toolbelt
 ncclient
 python-dotenv
+netmiko
+textfsm
+ansible
+pprint
