@@ -2,7 +2,7 @@ import subprocess
 import os
 
 def showrun(studentID):
-    router_name = "CSR1KV-Pod1-1"
+    router_name = "R1-Exam"
     filename = f"show_run_{studentID}_{router_name}.txt"
 
     command = ["ansible-playbook",  "playbook.yaml"]
