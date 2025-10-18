@@ -107,7 +107,7 @@ while True:
         elif command == "status":
             responseMessage = rc.status(studentID)
         elif command == "gigabit_status":
-            responseMessage = nc.gigabit_status(studentID)
+            responseMessage = nc.gigabit_status()
         elif command == "showrun":
             responseMessage = ac.showrun(studentID)
         else:
