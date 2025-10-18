@@ -10,7 +10,7 @@
           - show running-config
       register: showrun_output
 
-    - name: Save running-config output to local file
+    - name: Save running config locally
       copy:
         content: "{{ showrun_output.stdout[0] }}"
         dest: "./show_run_66070024_R4-Exam.txt"
