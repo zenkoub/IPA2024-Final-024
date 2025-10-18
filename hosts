@@ -2,7 +2,7 @@
 csr1kv ansible_host=10.0.15.64
 
 [routers:vars]
-ansible_connection=network_cli
+ansible_connection=ansible.netcommon.network_cli
 ansible_network_os=cisco.ios.ios
 ansible_user=admin
 ansible_password=cisco
