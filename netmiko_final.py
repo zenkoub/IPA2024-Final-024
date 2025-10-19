@@ -25,32 +25,20 @@ def gigabit_status():
         up = 0
         down = 0
         admin_down = 0
-        # Use TextFSM to parse output into structured data
-        result = ssh.send_command("show ip interface", use_textfsm=True)
-        ans_list = []
-
+        result = ssh.send_command("show ip interface brief", use_textfsm=True)
+        interface_status_list = []
         for status in result:
-            if "GigabitEthernet" in status.get("interface", ""):
-                # Determine interface status safely
-                if status["interface"] == "GigabitEthernet0/0":
-                    iface_status = "up"
-                elif "status" in status:
-                    iface_status = status["status"].lower()
-                elif "link" in status:
-                    iface_status = status["link"].lower()
-                else:
-                    iface_status = "unknown"
-
-                # Count interface states
-                if iface_status == "up":
+            if status["interface"].startswith("GigabitEthernet"):
+                interface_status_list.append(f"{status['interface']} {status['status']}")
+                if status["status"] == "up":
                     up += 1
-                elif iface_status == "down":
+                elif status["status"] == "down":
                     down += 1
-                elif iface_status == "administratively down":
+                elif status["status"] == "administratively down":
                     admin_down += 1
-
-                ans_list.append(f"{status['interface']} {iface_status}")
-
-        ans = ", ".join(ans_list) + f" -> {up} up, {down} down, {admin_down} administratively down"
+        ans = (
+            ", ".join(interface_status_list)
+            + f" -> {up} up, {down} down, {admin_down} administratively down"
+        )
         pprint(ans)
         return ans
