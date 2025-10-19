@@ -16,12 +16,14 @@ device_params = {
     "password": password,
     "ssh_config_file": False,
     "allow_agent": False,
-    "conn_timeout": 30
+    "conn_timeout": 30,
+    "global_delay_factor": 2,
 }
 
 def gigabit_status():
     ans = ""
-    with ConnectHandler(**device_params) as ssh:
+    with ConnectHandler(**device_params, session_log="netmiko_debug.txt") as ssh:
+        ssh.send_command("terminal length 0")
         up = 0
         down = 0
         admin_down = 0
