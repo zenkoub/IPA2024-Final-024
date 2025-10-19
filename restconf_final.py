@@ -7,8 +7,6 @@ router_ip = "10.0.15.64"
 api_url = f"https://{router_ip}/restconf/data/ietf-interfaces:interfaces/interface="
 api_url_status = f"https://{router_ip}/restconf/data/ietf-interfaces:interfaces-state/interface="
 
-# the RESTCONF HTTP headers, including the Accept and Content-Type
-# Two YANG data formats (JSON and XML) work with RESTCONF 
 headers = {
     "Accept": "application/yang-data+json",
     "Content-Type": "application/yang-data+json"

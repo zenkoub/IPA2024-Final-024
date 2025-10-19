@@ -10,4 +10,4 @@ ansible_become=yes
 ansible_become_method=enable
 ansible_become_password=cisco
 ansible_command_timeout=90
-ansible_prompt_regex='R1-Exam#'
+ansible_prompt_regex='R4-Exam#'

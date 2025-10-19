@@ -23,12 +23,11 @@ room_response = requests.get(
     "https://webexapis.com/v1/rooms",
     headers={"Authorization": f"Bearer {ACCESS_TOKEN}"}
 )
-print("HTTP code:", room_response.status_code)
 
 rooms = room_response.json()["items"]
 
 for room in rooms:
-    if room["title"] == "66070024":
+    if room["title"] == "IPA2025":
         roomId = room["id"]
         print("Using room:", room["title"])
         break
@@ -132,7 +131,7 @@ while True:
             filetype = "text/plain"
             
             postData = {
-                "roomId": roomId,
+                "roomId": roomIdToGetMessages,
                 "text": "show running config",
                 "files": (filename, fileobject, filetype),
             }
@@ -146,7 +145,7 @@ while True:
         else:
             print("Response from RESTCONF:", responseMessage)
 
-            postData = {"roomId": roomId, "text": responseMessage}
+            postData = {"roomId": roomIdToGetMessages, "text": responseMessage}
             postData = json.dumps(postData)
 
             # the Webex Teams HTTP headers, including the Authoriztion and Content-Type
