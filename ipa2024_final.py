@@ -19,15 +19,15 @@ import ansible_final as ac
 
 ACCESS_TOKEN = os.environ.get("WEBEX_TOKEN")
 
-room_response = requests.get(
+room_response = requests.get(  # Get the list of rooms
     "https://webexapis.com/v1/rooms",
     headers={"Authorization": f"Bearer {ACCESS_TOKEN}"}
 )
 
-rooms = room_response.json()["items"]
+rooms = room_response.json()["items"] # sort the list of rooms in .json
 
 for room in rooms:
-    if room["title"] == "IPA2025":
+    if room["title"] == "IPA2025": # check the desired room title; if id's matched - print title
         roomId = room["id"]
         print("Using room:", room["title"])
         break
@@ -82,7 +82,7 @@ while True:
     print("Received message: " + message)
 
     # check if the text of the message starts with the magic character "/" followed by your studentID and a space and followed by a command name
-    #  e.g.  "/66070123 create"
+    #  e.g.  "/66070024 create"
     if message.startswith("/"):
         try:
             parts = message.split()
